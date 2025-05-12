@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Home</title>
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        a {
+            color: #56ccf2;
+            text-decoration: none;
+            font-size: 1rem;
+            margin-top: 20px;
+            display: block;
+        }
+
+        a:hover {
+            color: #4da3e1;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            background-color: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        li span {
+            font-size: 1.2rem;
+            color: #2c3e50;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #56ccf2;
+        }
+
+        .add-to-cart {
+            padding: 8px 20px;
+            background-color: #56ccf2;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #4da3e1;
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            0% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Add animation to product list items */
+        li {
+            animation: slideIn 0.6s ease-out;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>Welcome to User Home</h2>
+    <a href="/logout">Logout</a>
+
+    <h3>Products</h3>
+    <ul>
+        <li th:each="product : ${products}">
+            <span th:text="${product.name}"></span>
+            <span class="price" th:text="${product.price}"></span>
+            <a class="add-to-cart" href="/cart/add/{product.id}">Add to Cart</a>
+        </li>
+    </ul>
+
+</body>
+</html>

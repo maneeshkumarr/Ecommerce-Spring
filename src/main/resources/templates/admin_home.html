@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home</title>
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 1.5rem;
+            margin-top: 40px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        a {
+            color: #56ccf2;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #4da3e1;
+        }
+
+        /* Add spacing and style to links in the navigation */
+        a.logout {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            font-size: 16px;
+            width: 200px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        a.logout:hover {
+            background-color: #c0392b;
+        }
+
+        /* List styles for products and users */
+        ul {
+            list-style: none;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        li {
+            background-color: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-info, .user-info {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .actions a {
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #56ccf2;
+            color: white;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .actions a:hover {
+            background-color: #4da3e1;
+        }
+
+        .actions a.delete {
+            background-color: #e74c3c;
+        }
+
+        .actions a.delete:hover {
+            background-color: #c0392b;
+        }
+
+        /* Hover effect on Add Product link */
+        a.add-product {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #56ccf2;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            font-size: 16px;
+            width: 200px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        a.add-product:hover {
+            background-color: #4da3e1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>Welcome Admin</h2>
+    <a href="/logout" class="logout">Logout</a>
+
+    <h3>Manage Products</h3>
+    <a href="/admin/products/add" class="add-product">Add New Product</a>
+    <ul>
+        <li th:each="product : ${products}">
+            <div class="product-info">
+                <span th:text="${product.name}"></span>
+                <span th:text="${product.price}"></span>
+            </div>
+            <div class="actions">
+                <a href="/admin/products/edit/{product.id}">Edit</a>
+                <a href="/admin/products/delete/{product.id}" class="delete">Delete</a>
+            </div>
+        </li>
+    </ul>
+
+    <h3>Manage Users</h3>
+    <ul>
+        <li th:each="user : ${users}">
+            <div class="user-info">
+                <span th:text="${user.email}"></span>
+                <span th:text="${user.role}"></span>
+            </div>
+            <div class="actions">
+                <a href="/admin/users/delete/{user.id}" class="delete">Delete</a>
+            </div>
+        </li>
+    </ul>
+
+</body>
+</html>

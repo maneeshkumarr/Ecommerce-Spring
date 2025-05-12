@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+            color: #333;
+        }
+
+        h2, h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        li {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        li span {
+            flex: 1;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        li a {
+            padding: 6px 12px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        li a:hover {
+            background-color: #c0392b;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            background-color: #27ae60;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1e8449;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .total {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 style="text-align:center;">🛒 Your Cart</h2>
+
+    <ul>
+        <li th:each="item : ${cartItems}">
+            <span th:text="${item.product.name}">Product</span>
+            <span th:text="${item.product.price}">Price</span>
+            <span th:text="${item.quantity}">Qty</span>
+            <a th:href="@{'/cart/remove/' + ${item.id}}">Remove</a>
+        </li>
+    </ul>
+
+    <h3 class="total">Total: ₹<span th:text="${totalPrice}">0</span></h3>
+
+    <h3 style="text-align:center;">💳 Payment Method</h3>
+    <form action="/checkout" method="POST">
+        <select name="paymentMethod">
+            <option value="Cash on Delivery">Cash on Delivery</option>
+            <!-- You can add UPI, Card, etc. here -->
+        </select>
+        <button type="submit">✅ Checkout</button>
+    </form>
+
+</body>
+</html>

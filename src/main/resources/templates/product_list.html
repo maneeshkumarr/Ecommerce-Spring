@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <h2>Product List</h2>
+
+    <ul>
+        <li th:each="product : ${products}">
+            <span th:text="${product.name}"></span>
+            <span th:text="${product.price}"></span>
+            <a href="/cart/add/{product.id}">Add to Cart</a>
+        </li>
+    </ul>
+
+</body>
+</html>
